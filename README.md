@@ -1,6 +1,6 @@
-![Image of Gopher flying](https://github.com/glycerine/zygomys/blob/master/media/high_altitude_gopher.png)
+![Image of Gopher flying](https://github.com/damienstanton/zygo/blob/master/media/high_altitude_gopher.png)
 
-# zygomys - an embedded scripting language for Go
+# zygo - an embedded scripting language for Go
 
 Quick examples...
 
@@ -33,13 +33,13 @@ zygo>
 
 ### quickly create a mini-language to drive your project
 
-zygomys is an embeddable scripting language. It is a modernized Lisp with an object-oriented flavor, and
+zygo is an embeddable scripting language. It is a modernized Lisp with an object-oriented flavor, and
 provides an interpreter and REPL (Read-Eval-Print-Loop;
 that is, it comes with a command line interactive interface).
 
-## why use zygomys?
+## why use zygo?
 
-zygomys allows you to create a Domain Specific Language to drive
+zygo allows you to create a Domain Specific Language to drive
 your program with minimal fuss and maximum convenience.
 
 It is written in Go and plays nicely with Go programs
@@ -47,31 +47,31 @@ and Go structs, using reflection to instantiate trees of Go structs
 from the scripted configuration. These data structures are native
 Go, and Go methods will run on them at compiled-Go speed.
 
-Because it speaks JSON and Msgpack fluently, zygomys is ideally suited for driving
+Because it speaks JSON and Msgpack fluently, zygo is ideally suited for driving
 complex configurations and providing projects with a domain specific
 language customized to your problem domain.
 
 The example snippets in the tests/*.zy provide many examples.
-The full [documentation can be found in the Wiki](https://github.com/glycerine/zygomys/wiki).
-zygomys blends traditional and new. While the s-expression syntax
-defines a Lisp, zygomys borrows some syntax from Clojure,
+The full [documentation can be found in the Wiki](https://github.com/damienstanton/zygo/wiki).
+zygo blends traditional and new. While the s-expression syntax
+defines a Lisp, zygo borrows some syntax from Clojure,
 and some (notably the for-loop style) directly from the Go/C tradition.
 
 The standalone REPL is called simply `zygo`.  `zygo` is also shorthand
 for the whole project when speaking aloud. In writing, the full
-`zygomys` is used to aid searchability.
+`zygo` is used to aid searchability.
 
 ### installation
 
 ~~~
-$ go get github.com/glycerine/zygomys/cmd/zygo
+$ go get github.com/damienstanton/zygo/cmd/zygo
 ~~~
 
-### not your average parentheses... features in zygomys 5.1.1 include
+### not your average parentheses... features in zygo 5.1.1 include
 
- * [x] package mechanism that supports modularity and isolation of scripts/packages/libraries from each other. [See tests/package.zy for examples.](https://github.com/glycerine/zygomys/blob/master/tests/package.zy)
+ * [x] package mechanism that supports modularity and isolation of scripts/packages/libraries from each other. [See tests/package.zy for examples.](https://github.com/damienstanton/zygo/blob/master/tests/package.zy)
  * [x] NaN handing that matches typical expectations/Go's answers.
- * [x] struct defintion and type checking. [See `tests/declare.zy` for examples.](https://github.com/glycerine/zygomys/blob/master/tests/declare.zy)
+ * [x] struct defintion and type checking. [See `tests/declare.zy` for examples.](https://github.com/damienstanton/zygo/blob/master/tests/declare.zy)
  * [x] Readable nested method calls: `(a.b.c.Fly)` calls method `Fly` on object `c` that lives within objects `a` and `b`.
  * [x] Use `zygo` to configure trees of Go structs, and then run methods on them at natively-compiled speed (since you are calling into Go code).
  * [x] sandbox-able environment; try `zygo -sandbox` and see the NewGlispSandbox() function.
@@ -97,7 +97,7 @@ $ go get github.com/glycerine/zygomys/cmd/zygo
 ### additional features
 
  * [x] Go-style comments, both `/*block*/` and `//through end-of-line.`
- * [x] zygomys is a small Go library, easy to integrate and use/extend.
+ * [x] zygo is a small Go library, easy to integrate and use/extend.
  * [x] Float (float64), Int (int64), Char, String, Symbol, List, Array, and Hash datatypes builtin.
  * [x] Arithmetic (`+`, `-`, `*`, `/`, `mod`, `**`)
  * [x] Shift Operators (`sll`, `srl`, `sra`)
@@ -117,13 +117,13 @@ $ go get github.com/glycerine/zygomys/cmd/zygo
  * [x] Channel and goroutine support
  * [x] Full closures with lexical scope.
 
-[See the wiki for lots of details and a full description of the zygomys language.](https://github.com/glycerine/zygomys/wiki).
+[See the wiki for lots of details and a full description of the zygo language.](https://github.com/damienstanton/zygo/wiki).
 
-### where did the name zygomys come from?
+### where did the name zygo come from?
 
-zygomys is a contraction of Zygogeomys, [a genus of pocket gophers. The Michoacan pocket gopher (Zygogeomys trichopus) finds its natural habitat in high-altitude forests.](https://en.wikipedia.org/wiki/Michoacan_pocket_gopher)
+zygo is a contraction of Zygogeomys, [a genus of pocket gophers. The Michoacan pocket gopher (Zygogeomys trichopus) finds its natural habitat in high-altitude forests.](https://en.wikipedia.org/wiki/Michoacan_pocket_gopher)
 
-The term is also descriptive. The stem `zygo` comes from the Greek for yoke, indicating a pair or a union of two things, and `mys` comes from the Greek for mouse. The union of Go and Lisp in a small cute package, that is zygomys.
+The term is also descriptive. The stem `zygo` comes from the Greek for yoke, indicating a pair or a union of two things, and `mys` comes from the Greek for mouse. The union of Go and Lisp in a small cute package, that is zygo.
 
 ### users of note
 

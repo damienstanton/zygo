@@ -30,12 +30,12 @@
 
 /* on my laptop, about 34x slower than Chez scheme.
 
-jaten@jatens-MacBook-Pro ~/go/src/github.com/glycerine/zygomys/benchmarks (master) $ time zygo ./array-mult.zy 
+jaten@jatens-MacBook-Pro ~/go/src/github.com/damienstanton/zygo/benchmarks (master) $ time zygo ./array-mult.zy 
 
 real	0m4.322s
 user	0m5.737s
 sys	0m0.191s
-jaten@jatens-MacBook-Pro ~/go/src/github.com/glycerine/zygomys/benchmarks (master) $ time scheme --script ./array-mult.scm 
+jaten@jatens-MacBook-Pro ~/go/src/github.com/damienstanton/zygo/benchmarks (master) $ time scheme --script ./array-mult.scm 
 
 real	0m0.169s
 user	0m0.136s

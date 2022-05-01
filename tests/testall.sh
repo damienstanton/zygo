@@ -2,7 +2,7 @@
 set -e
 for lispfile in tests/*.zy
 do
-    zygo -demo -exitonfail "${lispfile}" || (echo "${lispfile} failed" && exit 1)
+    cmd/zygo/zygo -demo -exitonfail "${lispfile}" || (echo "${lispfile} failed" && exit 1)
     echo "${lispfile} passed"        
 done
 echo 

@@ -1,13 +1,14 @@
 /*
-The zygomys command line REPL is known as `zygo`.
+The zygo command line REPL is known as `zygo`.
 */
 package main
 
 import (
 	"flag"
 	"fmt"
-	"github.com/glycerine/zygomys/zygo"
 	"os"
+
+	"github.com/damienstanton/zygo/zygo"
 )
 
 func usage(myflags *flag.FlagSet) {

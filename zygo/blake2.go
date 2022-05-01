@@ -2,6 +2,7 @@ package zygo
 
 import (
 	"encoding/binary"
+
 	"github.com/glycerine/blake2b"
 )
 

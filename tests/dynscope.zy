@@ -5,7 +5,7 @@
 (defn f [] (let [x 3] (g) (set f_after_g_sees_x x)))
 (f)
 
-// currently zygomys does lexical / static scoping
+// currently zygo does lexical / static scoping
 
 // under dynamic scoping
 //(assert (== g_saw_x 3))

@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"testing"
 
-	cv "github.com/glycerine/goconvey/convey"
+	"github.com/glycerine/goconvey/convey"
 )
 
 func Test020StacksDontAlias(t *testing.T) {
 
-	cv.Convey(`stack.Clone() should avoid all aliasing, as should Pop()`, t, func() {
+	convey.Convey(`stack.Clone() should avoid all aliasing, as should Pop()`, t, func() {
 		env := NewZlisp()
 		defer env.Close()
 

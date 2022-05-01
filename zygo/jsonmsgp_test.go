@@ -7,7 +7,7 @@ import (
 	"io"
 	"testing"
 
-	cv "github.com/glycerine/goconvey/convey"
+	"github.com/glycerine/goconvey/convey"
 	"github.com/ugorji/go/codec"
 )
 
@@ -18,7 +18,7 @@ import (
 */
 func Test005ConversionToAndFromMsgpackAndJson(t *testing.T) {
 
-	cv.Convey(`from gl we should be able to create a known Go struct,
+	convey.Convey(`from gl we should be able to create a known Go struct,
 
 type Event struct {
 	Id     int
@@ -37,22 +37,22 @@ type Event struct {
 		x, err := env.EvalString(event)
 		panicOn(err)
 
-		cv.So(x.SexpString(nil), cv.ShouldEqual, ` (eventdemo id:123 user: (persondemo first:"Liz" last:"C") flight:"AZD234" pilot:["Roger" "Ernie"] cancelled:true)`)
+		convey.So(x.SexpString(nil), convey.ShouldEqual, ` (eventdemo id:123 user: (persondemo first:"Liz" last:"C") flight:"AZD234" pilot:["Roger" "Ernie"] cancelled:true)`)
 
 		jsonBy := SexpToJson(x)
-		cv.So(string(jsonBy), cv.ShouldEqual, `{"Atype":"eventdemo", "id":123, "user":{"Atype":"persondemo", "first":"Liz", "last":"C", "zKeyOrder":["first", "last"]}, "flight":"AZD234", "pilot":["Roger", "Ernie"], "cancelled":true, "zKeyOrder":["id", "user", "flight", "pilot", "cancelled"]}`)
+		convey.So(string(jsonBy), convey.ShouldEqual, `{"Atype":"eventdemo", "id":123, "user":{"Atype":"persondemo", "first":"Liz", "last":"C", "zKeyOrder":["first", "last"]}, "flight":"AZD234", "pilot":["Roger", "Ernie"], "cancelled":true, "zKeyOrder":["id", "user", "flight", "pilot", "cancelled"]}`)
 		msgpack, goObj := SexpToMsgpack(x)
 		// msgpack field ordering is random, so can't expect a match the serialization byte-for-byte
-		//cv.So(msgpack, cv.ShouldResemble, expectedMsgpack)
+		//convey.So(msgpack, convey.ShouldResemble, expectedMsgpack)
 		goObj2, err := MsgpackToGo(msgpack)
 		panicOn(err)
 		// the ordering of jsonBack is canonical, so won't match ours
-		// cv.So(string(jsonBack), cv.ShouldResemble, `{"id":123, "user":{"first":"Liz", "last":"C"}, "flight":"AZD234", "pilot":["Roger", "Ernie"]}`)
+		// convey.So(string(jsonBack), convey.ShouldResemble, `{"id":123, "user":{"first":"Liz", "last":"C"}, "flight":"AZD234", "pilot":["Roger", "Ernie"]}`)
 
 		fmt.Printf("goObj = '%#v'\n", goObj)
 		fmt.Printf("goObj2 = '%#v'\n", goObj2)
 
-		cv.So(goObj, cv.ShouldResemble, goObj2)
+		convey.So(goObj, convey.ShouldResemble, goObj2)
 
 		iface, err := MsgpackToGo(msgpack)
 		panicOn(err)
@@ -63,7 +63,7 @@ type Event struct {
 		hhh.KeyOrder = x.(*SexpHash).KeyOrder
 		sexpStr := sexp.SexpString(nil)
 		expectedSexpr := ` (eventdemo id:123 user: (persondemo first:"Liz" last:"C") flight:"AZD234" pilot:["Roger" "Ernie"] cancelled:true)`
-		cv.So(sexpStr, cv.ShouldResemble, expectedSexpr)
+		convey.So(sexpStr, convey.ShouldResemble, expectedSexpr)
 
 		fmt.Printf("\n Unmarshaling from msgpack into pre-defined go struct should succeed.\n")
 
@@ -72,29 +72,29 @@ type Event struct {
 		err = dec.Decode(&goEvent)
 		panicOn(err)
 		fmt.Printf("from msgpack, goEvent = '%#v'\n", goEvent)
-		cv.So(goEvent.Id, cv.ShouldEqual, 123)
-		cv.So(goEvent.Flight, cv.ShouldEqual, "AZD234")
-		cv.So(goEvent.Pilot[0], cv.ShouldEqual, "Roger")
-		cv.So(goEvent.Pilot[1], cv.ShouldEqual, "Ernie")
-		cv.So(goEvent.User.First, cv.ShouldEqual, "Liz")
-		cv.So(goEvent.User.Last, cv.ShouldEqual, "C")
+		convey.So(goEvent.Id, convey.ShouldEqual, 123)
+		convey.So(goEvent.Flight, convey.ShouldEqual, "AZD234")
+		convey.So(goEvent.Pilot[0], convey.ShouldEqual, "Roger")
+		convey.So(goEvent.Pilot[1], convey.ShouldEqual, "Ernie")
+		convey.So(goEvent.User.First, convey.ShouldEqual, "Liz")
+		convey.So(goEvent.User.Last, convey.ShouldEqual, "C")
 
 		goEvent = Event{}
 		jdec := codec.NewDecoderBytes([]byte(jsonBy), &msgpHelper.jh)
 		err = jdec.Decode(&goEvent)
 		panicOn(err)
 		fmt.Printf("from json, goEvent = '%#v'\n", goEvent)
-		cv.So(goEvent.Id, cv.ShouldEqual, 123)
-		cv.So(goEvent.Flight, cv.ShouldEqual, "AZD234")
-		cv.So(goEvent.Pilot[0], cv.ShouldEqual, "Roger")
-		cv.So(goEvent.Pilot[1], cv.ShouldEqual, "Ernie")
-		cv.So(goEvent.User.First, cv.ShouldEqual, "Liz")
-		cv.So(goEvent.User.Last, cv.ShouldEqual, "C")
-		cv.So(goEvent.Cancelled, cv.ShouldEqual, true)
+		convey.So(goEvent.Id, convey.ShouldEqual, 123)
+		convey.So(goEvent.Flight, convey.ShouldEqual, "AZD234")
+		convey.So(goEvent.Pilot[0], convey.ShouldEqual, "Roger")
+		convey.So(goEvent.Pilot[1], convey.ShouldEqual, "Ernie")
+		convey.So(goEvent.User.First, convey.ShouldEqual, "Liz")
+		convey.So(goEvent.User.Last, convey.ShouldEqual, "C")
+		convey.So(goEvent.Cancelled, convey.ShouldEqual, true)
 
 		fmt.Printf("\n And directly from Go to S-expression via GoToSexp() should work.\n")
 		sexp2, err := GoToSexp(goObj2, env)
-		cv.So(sexp2.SexpString(nil), cv.ShouldEqual, expectedSexpr)
+		convey.So(sexp2.SexpString(nil), convey.ShouldEqual, expectedSexpr)
 		fmt.Printf("\n Result: directly from Go map[string]interface{} -> sexpr via GoMapToSexp() produced: '%s'\n", sexp2.SexpString(nil))
 
 		fmt.Printf("\n And the reverse direction, from S-expression to go map[string]interface{} should work.\n")
@@ -108,7 +108,7 @@ type Event struct {
 		// compare goMap3 and goObj2
 		for k3, v3 := range goMap3 {
 			v2 := goObj2map[k3]
-			cv.So(v3, cv.ShouldResemble, v2)
+			convey.So(v3, convey.ShouldResemble, v2)
 		}
 
 		fmt.Printf("\n Directly Sexp -> msgpack -> pre-established Go struct Event{} should work.\n")
@@ -144,14 +144,14 @@ type Event struct {
 			asHash.SetGoStructFactory(factory)
 
 			fmt.Printf("from json via factory.Make(), newStruct = '%#v'\n", newStruct)
-			cv.So(newStruct, cv.ShouldResemble, &goEvent)
+			convey.So(newStruct, convey.ShouldResemble, &goEvent)
 		}
 	})
 }
 
 func Test555NestedConversionOfSexpToGoStruct(t *testing.T) {
 
-	cv.Convey(`nested structs USING POINTERS in the nesting, should recursively be instantiated by (togo)...example: (togo (nestouter inner:(nestinner hello:"myname"))). The Inner pointer wasn't getting followed in
+	convey.Convey(`nested structs USING POINTERS in the nesting, should recursively be instantiated by (togo)...example: (togo (nestouter inner:(nestinner hello:"myname"))). The Inner pointer wasn't getting followed in
 
 type NestOuter struct {
 	Inner *NestInner
@@ -181,8 +181,8 @@ type NestInner struct {
 		shad := myNest.(*SexpHash).GoShadowStruct.(*NestOuter)
 
 		P("shad = '%#v'", shad)
-		cv.So(shad.Inner, cv.ShouldNotBeNil)
-		cv.So(shad.Inner.Hello, cv.ShouldEqual, "myname")
+		convey.So(shad.Inner, convey.ShouldNotBeNil)
+		convey.So(shad.Inner.Hello, convey.ShouldEqual, "myname")
 
 	})
 }

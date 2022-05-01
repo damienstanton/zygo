@@ -1,15 +1,15 @@
 package zygo
 
 import (
-	"github.com/shurcooL/go-goon"
 	"testing"
 
-	cv "github.com/glycerine/goconvey/convey"
+	"github.com/glycerine/goconvey/convey"
+	"github.com/shurcooL/go-goon"
 )
 
 func Test101ConversionToAndFromMsgpackAndJson(t *testing.T) {
 
-	cv.Convey(`
+	convey.Convey(`
       SexpToGo() should notice when it sees the same hash/with-shadow-struct re-used,
       and doesn't generate a 2nd shadow struct but instead re-uses the prior one
 `, t, func() {
@@ -34,12 +34,12 @@ func Test101ConversionToAndFromMsgpackAndJson(t *testing.T) {
 				ID: 123,
 			}}
 		_ = shared
-		cv.So(&set, cv.ShouldResemble, &SetOfPlanes{Flyers: []Flyer{&Hellcat{Plane: Plane{ID: 7, Friends: []Flyer{shared}}}, &Hornet{Plane: Plane{ID: 8, Friends: []Flyer{shared}}}}})
+		convey.So(&set, convey.ShouldResemble, &SetOfPlanes{Flyers: []Flyer{&Hellcat{Plane: Plane{ID: 7, Friends: []Flyer{shared}}}, &Hornet{Plane: Plane{ID: 8, Friends: []Flyer{shared}}}}})
 
 		// should actually *be* the same struct pointed to.
 		ptr0 := set.Flyers[0].(*Hellcat).Friends[0].(*Snoopy)
 		ptr1 := set.Flyers[1].(*Hornet).Friends[0].(*Snoopy)
 		P("ptr0 = %p, ptr1 = %p", ptr0, ptr1)
-		cv.So(ptr0, cv.ShouldEqual, ptr1)
+		convey.So(ptr0, convey.ShouldEqual, ptr1)
 	})
 }

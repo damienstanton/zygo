@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/glycerine/greenpack/msgp"
+	"github.com/tinylib/msgp/msgp"
 )
 
 // (bsave value path) writes value as greenpack to file.

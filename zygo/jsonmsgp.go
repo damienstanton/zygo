@@ -3,13 +3,14 @@ package zygo
 import (
 	"bytes"
 	"fmt"
-	"github.com/shurcooL/go-goon"
-	"github.com/ugorji/go/codec"
 	"reflect"
 	"sort"
 	"strings"
 	"time"
 	"unsafe"
+
+	"github.com/shurcooL/go-goon"
+	"github.com/ugorji/go/codec"
 )
 
 type TypeCheckable interface {
